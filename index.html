@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>API Exercise</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+<body>
+<div id="root"></div>
+<script type="text/javascript">
+
+  var url = '';
+
+  // jQuery style
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": url,
+    "method": "GET",
+    "headers": {
+      "Accept": "application/json",
+      "Sec-Fetch-Mode": "cors"
+    }
+  }
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+
+  // fetch style
+  fetch(url, {
+      method: "GET",
+      mode: "cors"
+    })
+    .catch(() => {
+      console.log("Could not reach server");
+    })
+    .then((res) => {
+      res.json().then((json) => {
+          console.log(json);
+      });
+    });
+</script>
+</body>
+</html>
