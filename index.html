@@ -11,20 +11,20 @@
   var url = '';
 
   // jQuery style
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": url,
-    "method": "GET",
-    "headers": {
-      "Accept": "application/json",
-      "Sec-Fetch-Mode": "cors"
-    }
-  }
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
+  // var settings = {
+  //   "async": true,
+  //   "crossDomain": true,
+  //   "url": url,
+  //   "method": "GET",
+  //   "headers": {
+  //     "Accept": "application/json",
+  //     "Sec-Fetch-Mode": "cors"
+  //   }
+  // }
+  //
+  // $.ajax(settings).done(function (response) {
+  //   console.log(response);
+  // });
 
   // fetch style
   fetch(url, {
@@ -36,7 +36,30 @@
     })
     .then((res) => {
       res.json().then((json) => {
-          console.log(json);
+          console.log(json["products"]);
+          json["products"].forEach((product) => {
+            var div = document.createElement("div");
+            var node = document.createTextNode(product["name"]);
+            div.appendChild(node);
+            document.body.appendChild(div);
+
+            // Get thumbnail image if available
+            var img = document.createElement("img");
+            //img.onerror = "this.style.display='none';"
+
+            if (product["thumbnailImage"]) {
+              img.src = product["thumbnailImage"];
+              document.body.appendChild(img);
+            } else if (product["image"]) {
+              img.src = product["image"];
+              document.body.appendChild(img);
+            } else {
+              var div = document.createElement("div");
+              var node = document.createTextNode("No Image Available");
+              div.appendChild(node);
+              document.body.appendChild(div);
+            }
+          });
       });
     });
 </script>
