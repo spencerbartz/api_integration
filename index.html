@@ -3,65 +3,17 @@
     <meta charset="UTF-8" />
     <title>API Exercise</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
   </head>
 <body>
-<div id="root"></div>
-<script type="text/javascript">
-
-  var url = '';
-
-  // jQuery style
-  // var settings = {
-  //   "async": true,
-  //   "crossDomain": true,
-  //   "url": url,
-  //   "method": "GET",
-  //   "headers": {
-  //     "Accept": "application/json",
-  //     "Sec-Fetch-Mode": "cors"
-  //   }
-  // }
-  //
-  // $.ajax(settings).done(function (response) {
-  //   console.log(response);
-  // });
-
-  // fetch style
-  fetch(url, {
-      method: "GET",
-      mode: "cors"
-    })
-    .catch(() => {
-      console.log("Could not reach server");
-    })
-    .then((res) => {
-      res.json().then((json) => {
-          console.log(json["products"]);
-          json["products"].forEach((product) => {
-            var div = document.createElement("div");
-            var node = document.createTextNode(product["name"]);
-            div.appendChild(node);
-            document.body.appendChild(div);
-
-            // Get thumbnail image if available
-            var img = document.createElement("img");
-            //img.onerror = "this.style.display='none';"
-
-            if (product["thumbnailImage"]) {
-              img.src = product["thumbnailImage"];
-              document.body.appendChild(img);
-            } else if (product["image"]) {
-              img.src = product["image"];
-              document.body.appendChild(img);
-            } else {
-              var div = document.createElement("div");
-              var node = document.createTextNode("No Image Available");
-              div.appendChild(node);
-              document.body.appendChild(div);
-            }
-          });
-      });
-    });
-</script>
+  <table id="productList" class="products">
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+  </table>
+  <script type="text/javascript" src="product_list.js"></script>
 </body>
 </html>
